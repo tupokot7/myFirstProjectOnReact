@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Counter = (props) => {
-   const [value, setValue] = useState(props.value);
+   const { value, onIncrement, onDecrement } = props;
    const formatValue = () => {
       return value === 0 ? "empty" : value;
    };
@@ -10,12 +10,6 @@ const Counter = (props) => {
       classes += value === 0 ? "bg-warning" : "bg-primary";
       return classes;
    };
-   const hendleIncrement = () => {
-      setValue((prevState) => prevState + 1);
-   };
-   const hendleDecrement = () => {
-      setValue((prevState) => prevState - 1);
-   };
 
    return (
       <div>
@@ -23,17 +17,22 @@ const Counter = (props) => {
          <span className={getBageClasses()}>{formatValue()}</span>
          <button
             className="btn btn-primary btn-sm m-2"
-            onClick={hendleIncrement}
+            onClick={() => onIncrement(props.id)}
          >
             +
          </button>
          <button
             className="btn btn-primary btn-sm m-2"
-            onClick={hendleDecrement}
+            onClick={() => onDecrement(props.id)}
          >
             -
          </button>
-         <button className="btn btn-danger btn-sm m-2" onClick={props.onDelete}>Delete</button>
+         <button
+            className="btn btn-danger btn-sm m-2"
+            onClick={() => props.onDelete(props.id)}
+         >
+            Delete
+         </button>
       </div>
    );
 };
